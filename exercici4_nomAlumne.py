@@ -1,17 +1,45 @@
-def crear_matriu_diagonal():
-    # Crear una matriu 7x7 amb zeros i valors de 0 a 49 a la diagonal
-    matriu = [[0] * 7 for _ in range(7)]
-    for i in range(7):
-        matriu[i][i] = i * 7
-    return matriu
+import random
 
-def guardar_matriu(matriu, filename):
-    # Guardar la matriu en un fitxer de text
-    with open(filename, 'w') as file:
-        for fila in matriu:
-            file.write(" ".join(map(str, fila)) + "\n")
+def crear_matriu_3x4():
+    # Creo una matriu amb numeros aleatoris de 0 al 80
+    matriz = [[random.randint(0, 80) for _ in range(4)] for _ in range(3)]
+    print("Matriu 3x4 principal:")
+    for fila in matriz:
+        print(fila)
+    return matriz
 
-# Genera i guarda la matriu
-matriu = crear_matriu_diagonal()
-guardar_matriu(matriu, "exercici1.txt")
-print("Matriu diagonal guardada a 'exercici1.txt'")
+def modificar_a_4x3(matriz):
+    
+    # Converteixo la matriu anterior en una de 4x3 convertint els numeros de l'ultima fila en els numeros de l'ultima columna.
+    matriz_modificada = [[matriz[j][i] for j in range(3)] for i in range(3)]
+    
+    # Afegeixo l'última fila de la matriu principal com a l'ultima columna
+    for i in range(3):
+        matriz_modificada[i].append(matriz[2][i])
+
+    # Afegeixo una quarta fila amb els valors de l'ulitma columna
+    matriz_modificada.append([matriz[2][i] for i in range(4)])
+
+    print("\nMatriu modificada a 4x3 (última fila com última columna):")
+    for fila in matriz_modificada:
+        print(fila)
+    
+    return matriz_modificada
+
+def igualar_ultima_columna(matriz):
+    # El mateix que l'exercici anterior pero en aquest cas serà de 4x4 i l'ultima columna tindrà el valor del primer numero de l'ultima columna de la matriu anterior.
+    valor_igualado = matriz[0][3]
+    for i in range(4):
+        matriz[i][3] = valor_igualado
+    
+    print("\nMatriu final:")
+    for fila in matriz:
+        print(fila)
+    
+    return matriz
+
+# Execució de les funcions
+if __name__ == "__main__":
+    matriu_3x4 = crear_matriu_3x4()
+    matriu_4x3 = modificar_a_4x3(matriu_3x4)
+    matriu_final = igualar_ultima_columna(matriu_4x3)
